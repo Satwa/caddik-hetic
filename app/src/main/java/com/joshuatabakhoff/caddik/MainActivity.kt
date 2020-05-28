@@ -51,11 +51,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun openCamera() {
-        Toast.makeText(this, "Open camera", Toast.LENGTH_SHORT).show()
-
         val integrator = IntentIntegrator(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt("Scan a barcode")
+        integrator.setPrompt("Scan a product")
         integrator.setBeepEnabled(false)
         integrator.setBarcodeImageEnabled(true)
         integrator.setOrientationLocked(false)
