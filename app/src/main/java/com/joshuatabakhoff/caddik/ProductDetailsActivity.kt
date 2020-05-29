@@ -42,7 +42,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
-                Log.d("CADDIK_NETWORK", "Receive " + response.body() ?: "EMPTY")
+                Log.d("CADDIK_NETWORK", "Receive " + response.body()?.product ?: "EMPTY")
             }
         })
     }

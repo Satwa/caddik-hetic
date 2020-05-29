@@ -5,16 +5,16 @@ class Product {
     var generic_name = ""
     var image_url    = ""
     var brand_owner  = ""
-    var origins      = ""
-    var labels       = ""
-    var quantity     = ""
+    var origins: String?      = ""
+    var labels: String?       = ""
+    var quantity: String?     = ""
 
     var ingredients = listOf<Ingredient>()
 
-    var ingredients_text = ""
-    var ingredients_text_with_allergens = ""
+    var ingredients_text: String? = ""
+    var ingredients_text_with_allergens: String? = ""
 
     // Unused for now
-    var nutrition_data = "" // TODO: Possible to map and parse
-    var nutrition_data_per = ""
+    var nutrition_data: String? = "" // TODO: Possible to map and parse
+    var nutrition_data_per: String? = ""
 }

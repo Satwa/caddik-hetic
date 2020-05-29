@@ -17,7 +17,7 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [x] Scan a product
 - [ ] Get details
   - [ ] UI
-  - [ ] API
+  - [x] API
 - [ ] Search by name
   - [ ] UI
   - [ ] API
