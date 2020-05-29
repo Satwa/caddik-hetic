@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.zxing.integration.android.IntentIntegrator
+import com.joshuatabakhoff.caddik.network.model.Product
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -31,6 +32,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     // Ask for the permission.
                     ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
                 }
+            }
+            R.id.debugButton -> {
+                val intent = Intent(this, ProductDetailsActivity::class.java).apply {
+                    putExtra("barcode", "80725725")
+                }
+                startActivity(intent)
             }
         }
     }
@@ -64,8 +71,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents !== null) {
-                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
-                Log.d("CADDIK", "Barcode: " + result.contents)
+                val intent = Intent(this, ProductDetailsActivity::class.java).apply {
+                    putExtra("barcode", result.contents)
+                }
+                startActivity(intent)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
