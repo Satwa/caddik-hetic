@@ -5,6 +5,7 @@ class Product {
     var generic_name = ""
     var image_url    = ""
     var brand_owner  = ""
+    var brands       = ""
     var origins: String?      = ""
     var labels: String?       = ""
     var quantity: String?     = ""
