@@ -30,9 +30,10 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [ ] I18n
 - [ ] No internet handler
 - [ ] Search history
-- [ ] Image cache
+- [x] Image cache
 - [ ] Persistence
-- [ ] Fetch OFF **and** OBF
+- [x] Fetch OFF **and** OBF
+- [ ] Handle product not found
 
 ### Improvements area
 - Undone todos

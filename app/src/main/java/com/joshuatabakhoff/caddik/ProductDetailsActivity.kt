@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.joshuatabakhoff.caddik.network.OPFService
 import com.joshuatabakhoff.caddik.network.model.ProductResult
 import retrofit2.Call
@@ -22,27 +23,55 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         val barcode = intent.getStringExtra("barcode")
 
         fetchProduct(barcode)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setTitle("Chargement du produit..") // TODO: I18n
     }
 
 
-    private fun fetchProduct(barcode: String) {
-        val d = Log.d("CADDIK_CAMERA", "Received a barcode: " + barcode)
-
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://world.openfoodfacts.org/api/v0/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private fun fetchProduct(barcode: String, withOBF: Boolean = false) {
+        var retrofit: Retrofit
+        if(withOBF){
+            retrofit = Retrofit.Builder()
+                .baseUrl("https://api.openbeautyfacts.org/api/v0/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }else{
+            retrofit = Retrofit.Builder()
+                .baseUrl("https://world.openfoodfacts.org/api/v0/") // TODO: world || fr according to locale
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
 
         opfService = retrofit.create(OPFService::class.java)
 
         opfService.getProductByBarcode(barcode).enqueue(object: Callback<ProductResult> {
             override fun onFailure(call: Call<ProductResult>, t: Throwable) {
                 Log.d("CADDIK_NETWORK","Error " + t.message)
+                // TODO: Display network error
             }
 
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
-                Log.d("CADDIK_NETWORK", "Receive " + response.body()?.product ?: "EMPTY")
+                Log.d("CADDIK_NETWORK", "Received " + response.body()?.product ?: "EMPTY")
+
+                if(response.body()?.status ?: 0 != 1 && !withOBF){
+                    Log.d("CADDIK_NETWORK", "Received no product, trying with OpenBeautyFacts")
+                    fetchProduct(intent.getStringExtra("barcode"), true)
+                    return
+                }else{
+                    Log.d("CADDIK_NETWORK", "Received no product, after 2 databases query")
+                    // TODO: Display not found error
+                }
+
+                val product = response.body()?.product
+
+                getSupportActionBar()?.setTitle(product?.product_name)
+
+                // Set product image and save it to cache
+                Glide
+                    .with(this@ProductDetailsActivity)
+                    .load(product?.image_url)
+                    //.placeholder(*drawable*)
+                    .into(findViewById(R.id.productImage))
             }
         })
     }
@@ -58,6 +87,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             //    }
             //}
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
 }
