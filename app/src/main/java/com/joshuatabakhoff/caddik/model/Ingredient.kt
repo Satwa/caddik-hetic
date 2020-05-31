@@ -1,4 +1,4 @@
-package com.joshuatabakhoff.caddik.network.model
+package com.joshuatabakhoff.caddik.model
 
 class Ingredient {
     var id = ""

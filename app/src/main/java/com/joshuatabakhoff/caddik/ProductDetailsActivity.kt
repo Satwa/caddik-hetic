@@ -4,9 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.joshuatabakhoff.caddik.item.IngredientItem
+import com.joshuatabakhoff.caddik.model.Ingredient
 import com.joshuatabakhoff.caddik.network.OPFService
-import com.joshuatabakhoff.caddik.network.model.ProductResult
+import com.joshuatabakhoff.caddik.model.ProductResult
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.android.synthetic.main.activity_product_details.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +31,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         fetchProduct(barcode)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         getSupportActionBar()?.setTitle("Chargement du produit..") // TODO: I18n
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        productInfoList.layoutManager = linearLayoutManager
     }
 
 
@@ -72,6 +81,13 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                     .load(product?.image_url)
                     //.placeholder(*drawable*)
                     .into(findViewById(R.id.productImage))
+
+                // Show ingredients
+                val itemAdapter = ItemAdapter<IngredientItem>()
+                val ingredients = product?.ingredients ?: listOf(Ingredient()) // fallback to empty
+                itemAdapter.add(ingredients.map { IngredientItem(it) })
+                val fastAdapter = FastAdapter.with(itemAdapter)
+                productInfoList.adapter = fastAdapter
             }
         })
     }

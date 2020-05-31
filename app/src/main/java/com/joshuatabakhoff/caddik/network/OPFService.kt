@@ -1,11 +1,10 @@
 package com.joshuatabakhoff.caddik.network
 
-import com.joshuatabakhoff.caddik.network.model.ProductResult
+import com.joshuatabakhoff.caddik.model.ProductResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 // OpenProductFacts (works for both OpenFoodFacts and OpenBeautyFacts, just switch baseUrl)
 interface OPFService {
