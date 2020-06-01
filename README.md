@@ -31,7 +31,6 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [ ] No internet handler
 - [ ] Search history
 - [x] Image cache
-- [ ] Persistence
 - [x] Fetch OFF **and** OBF
 - [ ] Handle product not found
 
