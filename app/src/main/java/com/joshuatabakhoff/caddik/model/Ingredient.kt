@@ -1,6 +1,10 @@
 package com.joshuatabakhoff.caddik.model
 
-class Ingredient {
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+
+open class Ingredient: RealmObject() {
+    @PrimaryKey
     var id = ""
     var rank = 0
 
