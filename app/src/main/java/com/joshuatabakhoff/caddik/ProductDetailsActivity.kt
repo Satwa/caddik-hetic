@@ -31,10 +31,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_details)
         Realm.init(this)
 
-        val barcode = intent.getStringExtra("barcode")
+        val barcode = intent.getStringExtra("barcode") as String
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.setTitle("Chargement du produit..") // TODO: I18n
+        getSupportActionBar()?.setTitle(getString(R.string.product_loading))
 
         val linearLayoutManager = LinearLayoutManager(this)
         productInfoList.layoutManager = linearLayoutManager
@@ -96,14 +96,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                     // Product not found
                     if(!withOBF){
                         Log.d("CADDIK_NETWORK", "Received no product, trying with OpenBeautyFacts")
-                        fetchProduct(intent.getStringExtra("barcode"), true)
+                        fetchProduct(intent.getStringExtra("barcode") as String, true)
                     }else{
                         Log.d("CADDIK_NETWORK", "Received no product, after 2 databases queries")
                         // TODO: Display not found error
                     }
                 }else{
                     // Product found
-                    val product = response.body()?.product
+                    val product = response.body()?.product as Product
 
                     renderProduct(product)
 

@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Caddik</string>
+    <string name="app_name" translatable="false">Caddik</string>
+    <string name="search_placeholder_barcode">Enter barcode here</string>
+    <string name="product_loading">Product is loading...</string>
+    <string name="history">History</string>
+    <string name="search_placeholder_product">Enter product name</string>
+    <string name="search">Search</string>
+    <string name="scan_product_button">Scan a product</string>
+    <string name="permission_camera_description">Access to your camera is required, please activate it in your settings.</string>
 </resources>

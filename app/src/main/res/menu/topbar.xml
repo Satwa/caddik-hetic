@@ -2,17 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- I18n -->
     <item
         android:id="@+id/search_item"
         android:icon="@drawable/ic_search"
-        android:title="Rechercher"
+        android:title="@string/search"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
     <item
         android:id="@+id/history_item"
-        android:title="Historique"
+        android:title="@string/history"
         app:showAsAction="never"
         />
 </menu>

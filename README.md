@@ -25,7 +25,7 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 #### Other todo
 - [ ] Logo
 - [ ] Splashscreen
-- [ ] I18n
+- [x] I18n
 - [ ] No internet handler _(Dialogs?)_
 - [x] Search history
 - [x] Image cache

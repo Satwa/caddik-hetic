@@ -34,12 +34,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
                 }
             }
-            R.id.debugButton -> {
-                val intent = Intent(this, ProductDetailsActivity::class.java).apply {
-                    putExtra("barcode", "80725725")
-                }
-                startActivity(intent)
-            }
         }
     }
 
@@ -51,7 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     openCamera()
                 } else {
-                    Toast.makeText(this, "L'accès à votre caméra est nécessaire, merci de l'activer dans vos réglages.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.permission_camera_description), Toast.LENGTH_SHORT).show()
                 }
                 return
             }
@@ -61,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun openCamera() {
         val integrator = IntentIntegrator(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt("Scan a product")
+        integrator.setPrompt(getString(R.string.scan_product_button))
         integrator.setBeepEnabled(false)
         integrator.setBarcodeImageEnabled(true)
         integrator.setOrientationLocked(false)
@@ -87,7 +81,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val searchItem = menu.findItem(R.id.search_item).actionView as SearchView
 
-        searchItem.setQueryHint("Entrez le code barre manuellement") // TODO: I18n
+        searchItem.setQueryHint(getString(R.string.search_placeholder_barcode))
 
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {

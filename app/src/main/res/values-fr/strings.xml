@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_placeholder_barcode">Entrez le code barre manuellement</string>
+    <string name="product_loading">Chargement du produit...</string>
+    <string name="history">Historique</string>
+    <string name="search_placeholder_product">Entrez le nom d\'un produit</string>
+    <string name="search">Rechercher</string>
+    <string name="scan_product_button">Scanner un produit</string>
+    <string name="permission_camera_description">L\'accès à votre caméra est nécessaire, merci de l\'activer dans vos réglages.</string>
+</resources>

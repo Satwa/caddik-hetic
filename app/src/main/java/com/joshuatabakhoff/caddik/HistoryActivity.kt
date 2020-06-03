@@ -28,7 +28,7 @@ class HistoryActivity: AppCompatActivity() {
 
         Realm.init(this)
 
-        supportActionBar?.setTitle("Historique") // TODO: I18n
+        supportActionBar?.setTitle(getString(R.string.history))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -57,7 +57,7 @@ class HistoryActivity: AppCompatActivity() {
         }
         historyProductList.adapter = fastAdapter
 
-        fastAdapter.onClickListener = { view, adapter, item, position ->
+        fastAdapter.onClickListener = { _, _, item, _ ->
             Log.d("CADDIK_CLICK", item.product.code)
             val intent = Intent(this@HistoryActivity, ProductDetailsActivity::class.java).apply {
                 putExtra("barcode", item.product.code)
@@ -74,7 +74,7 @@ class HistoryActivity: AppCompatActivity() {
 
         val searchItem = menu.findItem(R.id.search_item).actionView as SearchView
 
-        searchItem.queryHint = "Entrez le nom d'un produit" // TODO: I18n
+        searchItem.queryHint = getString(R.string.search_placeholder_product)
 
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             private fun lookUp(text: String){
