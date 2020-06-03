@@ -85,26 +85,26 @@ class ProductDetailsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
                 Log.d("CADDIK_NETWORK", "Received " + response.body()?.product)
 
-                if((response.body()?.status ?: 0) != 1){
+                if(response.body()?.status != 1){
+                    // Product not found
                     if(!withOBF){
                         Log.d("CADDIK_NETWORK", "Received no product, trying with OpenBeautyFacts")
                         fetchProduct(intent.getStringExtra("barcode"), true)
-                        return
                     }else{
                         Log.d("CADDIK_NETWORK", "Received no product, after 2 databases queries")
                         // TODO: Display not found error
-                        return
                     }
+                }else{
+                    // Product found
+                    val product = response.body()?.product
+
+                    renderProduct(product)
+
+                    // Save to local database
+                    realm.beginTransaction()
+                    realm.copyToRealm(product)
+                    realm.commitTransaction()
                 }
-
-                val product = response.body()?.product
-
-                renderProduct(product)
-
-                // Save to local database
-                realm.beginTransaction()
-                realm.copyToRealm(product)
-                realm.commitTransaction()
             }
         })
     }

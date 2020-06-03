@@ -38,3 +38,4 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - App design
 - Fetch from OPF according to locale
 - Show a loader while fetching
+- Edit product data (as we rely on collaborative database, let's give back to the community)
