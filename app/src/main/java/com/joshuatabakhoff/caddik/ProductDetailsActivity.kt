@@ -2,6 +2,7 @@ package com.joshuatabakhoff.caddik
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -131,6 +132,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         itemAdapter.add(ingredients.map { IngredientItem(it) })
         val fastAdapter = FastAdapter.with(itemAdapter)
         productInfoList.adapter = fastAdapter
+
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun onSupportNavigateUp(): Boolean {

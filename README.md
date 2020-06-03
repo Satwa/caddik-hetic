@@ -26,11 +26,11 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [ ] Logo
 - [ ] Splashscreen
 - [ ] I18n
-- [ ] No internet handler
+- [ ] No internet handler _(Dialogs?)_
 - [x] Search history
 - [x] Image cache
 - [x] Fetch OFF **and** OBF
-- [ ] No product handler
+- [ ] No product handler  _(Dialogs?)_
 - [x] **BUGFIX:** Update created when scanning a previous product
 - [ ] **IMPROVEMENT:** Clicking row should show an alpha shadow
 - [ ] **IMPROVEMENT:** Hide keyboard when submitting
@@ -40,5 +40,5 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - Show more infos
 - App design
 - Fetch from OPF according to locale
-- Show a loader while fetching
+- [x] Show a loader while fetching
 - Edit product data (as we rely on collaborative database, let's give back to the community)
