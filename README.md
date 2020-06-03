@@ -27,10 +27,12 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [ ] Splashscreen
 - [ ] I18n
 - [ ] No internet handler
-- [ ] Search history
+- [x] Search history
 - [x] Image cache
 - [x] Fetch OFF **and** OBF
 - [ ] Handle product not found
+- [x] **BUGFIX:** Update created when scanning a previous product
+- [ ] **BUGFIX:** Clicking row should show an alpha shadow
 
 ### Improvements area
 - Undone todos

@@ -54,6 +54,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         if(product !== null){
             Log.d("CADDIK_STORAGE","Found " + barcode)
             renderProduct(product)
+
+            // Update created to be accurate in history
+            realm.beginTransaction()
+            product.created = (System.currentTimeMillis() / 1000).toString()
+            realm.commitTransaction()
+
             return true
         }
 

@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val searchItem = menu.findItem(R.id.search_item).actionView as SearchView
 
-        searchItem.setQueryHint("Entrez ici le code barre manuellement") // TODO: I18n
+        searchItem.setQueryHint("Entrez le code barre manuellement") // TODO: I18n
 
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -111,6 +111,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(item.itemId){
             R.id.history_item -> {
                 Log.d("CADDIK_MENU", "Clicked history item")
+                startActivity(Intent(this, HistoryActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
