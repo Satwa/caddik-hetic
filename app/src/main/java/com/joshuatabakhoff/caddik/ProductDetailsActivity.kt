@@ -91,7 +91,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
                 Log.d("CADDIK_NETWORK", "Received " + response.body()?.product)
 
-                if(response.body()?.status != 1){
+                if(response.body()?.status != 1 || (response.body()?.product?.product_name?.length ?: 0) < 2){
                     // Product not found
                     if(!withOBF){
                         Log.d("CADDIK_NETWORK", "Received no product, trying with OpenBeautyFacts")
