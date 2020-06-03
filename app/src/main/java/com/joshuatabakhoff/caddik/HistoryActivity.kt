@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_history.*
 class HistoryActivity: AppCompatActivity() {
 
     private lateinit var realm: Realm
+    private lateinit var itemAdapter: ItemAdapter<ProductItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +41,14 @@ class HistoryActivity: AppCompatActivity() {
     }
 
     private fun getHistoryAndRender(){
-        val products = realm
+        val _products = realm
                         .where(Product::class.java)
                         .sort("created", Sort.DESCENDING)
                         .findAll()
 
-        val itemAdapter = ItemAdapter<ProductItem>()
+        val products = realm.copyFromRealm(_products) // We need to perform a copy from realm to access them while filtering (thread-related)
+
+        itemAdapter = ItemAdapter()
         itemAdapter.add(products.map { ProductItem(it) })
         val fastAdapter = FastAdapter.with(itemAdapter)
         fastAdapter.getSelectExtension().apply {
@@ -74,13 +78,20 @@ class HistoryActivity: AppCompatActivity() {
         searchItem.queryHint = "Entrez le nom d'un produit" // TODO: I18n
 
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            private fun lookUp(text: String){
+                itemAdapter.filter(text)
+                itemAdapter.itemFilter.filterPredicate = { item: ProductItem, constraint: CharSequence? ->
+                    item.product.product_name.contains(constraint.toString(), ignoreCase = true)
+                }
+            }
             override fun onQueryTextChange(newText: String): Boolean {
-                // Should be done live here
+                lookUp(newText)
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.d("CADDIK_SEARCH", "Performing '$query' search")
+                lookUp(query)
                 return false
             }
         })

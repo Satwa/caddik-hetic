@@ -30,9 +30,10 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [x] Search history
 - [x] Image cache
 - [x] Fetch OFF **and** OBF
-- [ ] Handle product not found
+- [ ] No product handler
 - [x] **BUGFIX:** Update created when scanning a previous product
-- [ ] **BUGFIX:** Clicking row should show an alpha shadow
+- [ ] **IMPROVEMENT:** Clicking row should show an alpha shadow
+- [ ] **IMPROVEMENT:** Hide keyboard when submitting
 
 ### Improvements area
 - Undone todos
