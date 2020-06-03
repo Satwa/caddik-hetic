@@ -83,7 +83,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
-                Log.d("CADDIK_NETWORK", "Received " + response.body()?.product ?: "EMPTY")
+                Log.d("CADDIK_NETWORK", "Received " + response.body()?.product)
 
                 if((response.body()?.status ?: 0) != 1){
                     if(!withOBF){

@@ -19,8 +19,8 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
   - [x] UI
   - [x] API
 - [ ] Search by name _(cancelled)_
-- [ ] Manually enter barcode
-  - [ ] UI
+- [x] Manually enter barcode
+  - [x] UI
 
 #### Other todo
 - [ ] Logo

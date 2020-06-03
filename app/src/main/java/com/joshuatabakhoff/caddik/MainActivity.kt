@@ -4,9 +4,13 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.zxing.integration.android.IntentIntegrator
@@ -14,7 +18,6 @@ import com.google.zxing.integration.android.IntentIntegrator
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     val CAMERA_PERMISSION_REQUEST_CODE = 4242
-    // val IMAGE_CAPTURE_REQUEST_CODE = 1337
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,5 +80,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.topbar, menu)
+
+        val searchItem = menu.findItem(R.id.search_item).actionView as SearchView
+
+        searchItem.setQueryHint("Entrez ici le code barre manuellement") // TODO: I18n
+
+        searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Log.d("CADDIK_SEARCH", "Performing '" + query + "' search")
+                val intent = Intent(this@MainActivity, ProductDetailsActivity::class.java).apply {
+                    putExtra("barcode", query.trim())
+                }
+                startActivity(intent)
+                return false
+            }
+        })
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.history_item -> {
+                Log.d("CADDIK_MENU", "Clicked history item")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
