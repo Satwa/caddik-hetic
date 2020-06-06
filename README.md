@@ -23,7 +23,7 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
   - [x] UI
 
 #### Other todo
-- [ ] Logo
+- [x] Logo
 - [ ] Splashscreen _(cancelled)_
 - [x] I18n
 - [x] No internet handler _(Dialogs?)_
