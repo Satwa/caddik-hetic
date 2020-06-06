@@ -3,6 +3,7 @@ package com.joshuatabakhoff.caddik
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -49,6 +50,30 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun showDialog(title: String, description: String) {
+        // Initialize a new instance of
+        val builder = AlertDialog.Builder(this)
+
+        // Set the alert dialog title
+        builder.setTitle(title)
+
+        // Display a message on alert dialog
+        builder.setMessage(description)
+
+        // Set a positive button and its click listener on alert dialog
+        builder.setNeutralButton("OK"){dialog, _ ->
+            dialog.dismiss()
+            finish()
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
+    }
+
     private fun fetchFromLocal(barcode: String): Boolean {
         val product = realm
                 .where(Product::class.java)
@@ -90,7 +115,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         opfService.getProductByBarcode(barcode).enqueue(object: Callback<ProductResult> {
             override fun onFailure(call: Call<ProductResult>, t: Throwable) {
                 Log.d("CADDIK_NETWORK","Error " + t.message)
-                // TODO: Display network error
+                showDialog(getString(R.string.error), getString(R.string.error_network))
             }
 
             override fun onResponse(call: Call<ProductResult>, response: Response<ProductResult>) {
@@ -103,7 +128,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                         fetchProduct(intent.getStringExtra("barcode") as String, true)
                     }else{
                         // We failed to find a product, we display an error
-                        // TODO: Display not found error
+                        showDialog(getString(R.string.error), getString(R.string.error_not_found))
                     }
                 }else{
                     // Product found
@@ -121,7 +146,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun renderProduct(product: Product?){
-        getSupportActionBar()?.setTitle(product?.product_name)
+        supportActionBar?.title = product?.product_name
 
         // Set product image and save it to cache
         Glide

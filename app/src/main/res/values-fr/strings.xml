@@ -7,4 +7,7 @@
     <string name="search">Rechercher</string>
     <string name="scan_product_button">Scanner un produit</string>
     <string name="permission_camera_description">L\'accès à votre caméra est nécessaire, merci de l\'activer dans vos réglages.</string>
+    <string name="error">Une erreur est survenue</string>
+    <string name="error_not_found">Nous n\'avons malheureusement pas trouvé le produit scanné. Veuillez réessayer avec un autre produit.</string>
+    <string name="error_network">Nous n\'arrivons pas à contacter nos serveurs, assurez-vous d\'avoir accès à Internet et réessayez !</string>
 </resources>

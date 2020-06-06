@@ -26,14 +26,15 @@ We rely on OpenFoodFacts and OpenBeautyFacts API for this project. Thanks to all
 - [ ] Logo
 - [ ] Splashscreen _(cancelled)_
 - [x] I18n
-- [ ] No internet handler _(Dialogs?)_
+- [x] No internet handler _(Dialogs?)_
 - [x] Search history
 - [x] Image cache
 - [x] Fetch OFF **and** OBF
-- [ ] No product handler  _(Dialogs?)_
+- [x] No product handler  _(Dialogs?)_
 - [x] **BUGFIX:** Update created when scanning a previous product
 - [ ] **IMPROVEMENT:** Clicking row should show an alpha shadow
 - [ ] **IMPROVEMENT:** Hide keyboard when submitting
+- [ ] **IMPROVEMENT:** Show image placeholder while downloading it
 
 ### Improvements area
 - Undone todos
