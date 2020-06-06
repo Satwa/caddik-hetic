@@ -109,7 +109,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
                     // Save to local database
                     realm.beginTransaction()
-                    realm.copyToRealm(product)
+                    realm.copyToRealmOrUpdate(product)
                     realm.commitTransaction()
                 }
             }
