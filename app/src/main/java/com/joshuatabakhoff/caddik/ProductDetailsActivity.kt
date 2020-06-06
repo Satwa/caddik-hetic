@@ -33,14 +33,17 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         val barcode = intent.getStringExtra("barcode") as String
 
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.setTitle(getString(R.string.product_loading))
+        // Change actionBar title and show back button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.product_loading)
 
+        // setup product info recyclerview
         val linearLayoutManager = LinearLayoutManager(this)
         productInfoList.layoutManager = linearLayoutManager
 
         realm = Realm.getDefaultInstance()
 
+        // find locally or perform api request
         if(!fetchFromLocal(barcode)){
             fetchProduct(barcode)
         }
@@ -83,6 +86,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         opfService = retrofit.create(OPFService::class.java)
 
+        // Perform HTTP request
         opfService.getProductByBarcode(barcode).enqueue(object: Callback<ProductResult> {
             override fun onFailure(call: Call<ProductResult>, t: Throwable) {
                 Log.d("CADDIK_NETWORK","Error " + t.message)
@@ -95,10 +99,10 @@ class ProductDetailsActivity : AppCompatActivity() {
                 if(response.body()?.status != 1 || (response.body()?.product?.product_name?.length ?: 0) < 2){
                     // Product not found
                     if(!withOBF){
-                        Log.d("CADDIK_NETWORK", "Received no product, trying with OpenBeautyFacts")
+                        // We received no product with OpenFoodFacts, we try with OpenBeautyFacts
                         fetchProduct(intent.getStringExtra("barcode") as String, true)
                     }else{
-                        Log.d("CADDIK_NETWORK", "Received no product, after 2 databases queries")
+                        // We failed to find a product, we display an error
                         // TODO: Display not found error
                     }
                 }else{
@@ -136,6 +140,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
     }
 
+    // Back button on actionBar handler
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true

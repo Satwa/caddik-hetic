@@ -28,9 +28,11 @@ class HistoryActivity: AppCompatActivity() {
 
         Realm.init(this)
 
-        supportActionBar?.setTitle(getString(R.string.history))
+        // Change actionBar title and show back button
+        supportActionBar?.title = getString(R.string.history)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // setup products history recyclerview
         val linearLayoutManager = LinearLayoutManager(this)
         historyProductList.layoutManager = linearLayoutManager
 
@@ -45,8 +47,10 @@ class HistoryActivity: AppCompatActivity() {
                         .sort("created", Sort.DESCENDING)
                         .findAll()
 
-        val products = realm.copyFromRealm(_products) // We need to perform a copy from realm to access them while filtering (thread-related)
+        // We need to perform a copy from realm to access them while filtering (thread-related)
+        val products = realm.copyFromRealm(_products)
 
+        // setup and populate recycler view
         itemAdapter = ItemAdapter()
         itemAdapter.add(products.map { ProductItem(it) })
         val fastAdapter = FastAdapter.with(itemAdapter)
@@ -57,6 +61,7 @@ class HistoryActivity: AppCompatActivity() {
         }
         historyProductList.adapter = fastAdapter
 
+        // when clicking on an item, we open product details
         fastAdapter.onClickListener = { _, _, item, _ ->
             Log.d("CADDIK_CLICK", item.product.code)
             val intent = Intent(this@HistoryActivity, ProductDetailsActivity::class.java).apply {
@@ -67,6 +72,10 @@ class HistoryActivity: AppCompatActivity() {
         }
     }
 
+    /*
+     *  TOP MENU
+     *  HANDLER
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.topbar, menu)
 
@@ -76,15 +85,19 @@ class HistoryActivity: AppCompatActivity() {
 
         searchItem.queryHint = getString(R.string.search_placeholder_product)
 
+        // Handle search query
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             private fun lookUp(text: String){
+                // we set the text to filter before running the filter handler
                 itemAdapter.filter(text)
+
                 itemAdapter.itemFilter.filterPredicate = { item: ProductItem, constraint: CharSequence? ->
+                    // returns boolean whether the product name contains the query to show/hide item accordingly
                     item.product.product_name.contains(constraint.toString(), ignoreCase = true)
                 }
             }
-            override fun onQueryTextChange(newText: String): Boolean {
-                lookUp(newText)
+            override fun onQueryTextChange(query: String): Boolean {
+                lookUp(query)
                 return false
             }
 
@@ -107,6 +120,7 @@ class HistoryActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    // Back button on actionBar handler
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true

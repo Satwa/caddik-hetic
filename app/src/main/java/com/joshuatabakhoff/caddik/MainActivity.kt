@@ -24,6 +24,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
     }
 
+    private fun openCamera() {
+        val integrator = IntentIntegrator(this)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
+        integrator.setPrompt(getString(R.string.scan_product_button))
+        integrator.setBeepEnabled(false)
+        integrator.setBarcodeImageEnabled(true)
+        integrator.setOrientationLocked(false)
+        integrator.initiateScan()
+    }
+
+    /*
+     *    VIEW
+     *  LISTENERS
+     *
+     */
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.scanButton -> {
@@ -52,16 +67,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun openCamera() {
-        val integrator = IntentIntegrator(this)
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt(getString(R.string.scan_product_button))
-        integrator.setBeepEnabled(false)
-        integrator.setBarcodeImageEnabled(true)
-        integrator.setOrientationLocked(false)
-        integrator.initiateScan()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
@@ -76,6 +81,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /*
+     *  TOP MENU
+     *  HANDLER
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.topbar, menu)
 
