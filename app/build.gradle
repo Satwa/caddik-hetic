@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
 
     // FastAdapter
-    implementation "com.mikepenz:fastadapter:4.1.0"
+    implementation "com.mikepenz:fastadapter:5.2.3"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
